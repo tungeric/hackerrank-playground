@@ -17,5 +17,16 @@ end
 
 total_words = n
 
-puts counter_mag
-puts counter_ran
+if n > m
+  puts "No"
+else
+  trigger = false
+  counter_ran.each do |k, v|
+    if counter_mag[k] < v
+      puts "No"
+      trigger = true
+      break
+    end
+  end
+  puts "Yes" if trigger == false
+end
