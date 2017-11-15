@@ -1,37 +1,30 @@
-expressions = ['{[()]}', '{[(])}', '{{[[(())]]}}]']
+expressions = ['{[()]}', '{[(])}', '{{[[(())]]}}']
 
-char_hash = { ']' => '[', '}' => '{', ')' => '(' }
+
 # open_arr = [ '[', '{', '(']
 # closed_arr = [ ']', '}', ')']
 
-expressions.each do |expression|
+isBalanced?(expression)
+  char_hash = { ']' => '[', '}' => '{', ')' => '(' }
   expression_arr = expression.chars
-  first_closed_idx = nil
+  should_be_open = true
   char_stack = []
-  triggered = false
   expression_arr.each do |char|
     if char_hash.values.include?(char)
-      char_stack << char
+      if should_be_open
+        char_stack << char
+      else
+        return false
+      end
     else
+      should_be_open = false
       if char_stack[-1] == char_hash[char]
         char_stack.pop()
       else
-        puts "NO"
-        triggered = true
-        break
+        return false
       end
     end
   end
-  puts "YES" if triggered == false
-  triggered = false
+  return true
 end
-  # expression_arr.each_with_index do |char, idx|
-  #   if closed_arr.include?(char)
-  #     first_closed_idx = idx
-  #   end
-  #   if first_closed_idx == nil || first_closed_idx == 0
-  #     puts "NO"
-  #     break
-  #   else
-  #     open_side = expression_arr[0...first_closed_idx].reverse
-  #     closed_side = expression_arr[first_closed_idx..-1]
+
