@@ -61,3 +61,37 @@ function rotateImage(a) {
   return a;
 }
 
+// --- sudoku
+
+function sudoku2(grid) {
+  let isValid = true;
+  for (i = 0; i < 9; i++) {
+    for (j = 0; j < 9; j++) {
+      if (grid[i][j] !== '.') {
+        // check rows, columns
+        for (m = 0; m < 9; m++) {
+          if (m !== j && grid[i][m] === grid[i][j]) {
+            isValid = false;
+            break;
+          }
+          if (m !== i && grid[m][j] === grid[i][j]) {
+            isValid = false;
+            break;
+          }
+        }
+
+        // check subgrid
+        for (m = i - (i % 3); m < i - (i % 3) + 3; m++) {
+          for (n = j - (j % 3); n < j - (j % 3) + 3; n++) {
+            if (m !== i && n !== j && grid[m][n] === grid[i][j]) {
+              isValid = false;
+              break;
+            }
+          }
+        }
+
+      }
+    }
+  }
+  return isValid;
+}
