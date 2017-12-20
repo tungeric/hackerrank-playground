@@ -1,4 +1,22 @@
 // ARRAYS
+// -- first duplicate
+function firstDuplicate(a) {
+  let temp = {};
+  let duplicate = -1
+  for (i = 0; i < a.length; i++) {
+    let val = a[i];
+    if (temp[val] === undefined) {
+      temp[val] = 1;
+    } else {
+      duplicate = val;
+      break;
+    }
+  }
+  return duplicate;
+}
+
+
+// -- first not repeating char
 function firstNotRepeatingCharacter(s) {
   let counter = {};
   s.split('').forEach((char) => {
@@ -19,7 +37,7 @@ function firstNotRepeatingCharacter(s) {
   return firstNotRepeatedChar;
 }
 
-//---
+//--- rotate image
 
 function rotateImage(a) {
   const n = a.length;
@@ -95,3 +113,35 @@ function sudoku2(grid) {
   }
   return isValid;
 }
+
+// ---- crypt
+function isCryptSolution(crypt, solution) {
+  let solutionHash = {};
+  let isValid = true;
+  solution.forEach((pair) => {
+    solutionHash[pair[0]] = pair[1];
+  });
+  cryptNums = crypt.map((word) => {
+    console.log(word);
+    return word.split('').map((char) => {
+      return solutionHash[char];
+    }).join('');
+  });
+  // check first character in each number
+  for (i = 0; i < 3; i++) {
+    if (cryptNums[i].length > 1 && cryptNums[i][0] === '0') {
+      console.log('started with 0');
+      isValid = false;
+      break;
+    }
+  }
+  let intCryptNums = cryptNums.map((num) => {
+    return parseInt(num);
+  });
+  if (intCryptNums[0] + intCryptNums[1] !== intCryptNums[2]) {
+    console.log('didnt add properly');
+    isValid = false;
+  }
+  return isValid;
+}
+
