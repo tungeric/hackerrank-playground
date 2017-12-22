@@ -31,7 +31,15 @@ def firstNotRepeatingCharacter(s):
     if len(bucket) == 0:
         return '_'
     return bucket[0]
+
+# HELPFUL THINGS:
+# interate through dictionary
     # for key, value in counter.items():
     #     if value == 1:
     #         char = key
     #         break
+
+# create 2D array with default value of 0
+    # w, h = 8, 5;
+    # Matrix = [[0 for x in range(w)] for y in range(h)] 
+
