@@ -142,8 +142,22 @@ def gradingHomework(question):
     avg_score = round(sum(score_array) / len(score_array),3)
     return avg_score
 
-    
-
+# Create number matrix for a minesweeper game
+def minesweeper(matrix):
+    m = len(matrix)
+    n = len(matrix[0])
+    num_matrix = [[0 for x in range(n)] for y in range(m)]
+    for row in range(0,m):
+        for col in range(0,n):
+            count = 0
+            for x in range(-1,2):
+                for y in range(-1,2):
+                    if 0 <= row+x < m and 0 <= col+y < n:
+                        if matrix[row+x][col+y] == True:
+                            if not (x ==0 and y==0):
+                                count += 1
+                    num_matrix[row][col] = count
+    return num_matrix
 
 
 # HELPFUL THINGS:
