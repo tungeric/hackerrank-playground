@@ -117,6 +117,34 @@ def findTopNode(toys):
             break
     return root
 
+# Solving linear equations
+# input: question: [["11=2x+5","2"], 
+#  ["18=5x-2","4"]]
+# output: 50
+
+def gradingHomework(question):
+    score_array = []
+    for equation in question:
+        prompt, answer = equation
+        equal_index = prompt.index('=')
+        x_index = prompt.index('x')
+        y = int(prompt[0:equal_index])
+        m = int(prompt[equal_index+1:x_index])
+        if x_index < len(prompt)-1:
+            b = int(prompt[x_index+1:])
+            x = (y - b) / m
+        else:
+            x = y / m
+        if x == int(answer):
+            score_array.append(100)
+        else:
+            score_array.append(0)
+    avg_score = round(sum(score_array) / len(score_array),3)
+    return avg_score
+
+    
+
+
 
 # HELPFUL THINGS:
 # interate through dictionary
