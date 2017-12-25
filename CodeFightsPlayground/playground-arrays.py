@@ -159,6 +159,83 @@ def minesweeper(matrix):
                     num_matrix[row][col] = count
     return num_matrix
 
+# Check if equation is correct
+# input: predicate: "( 3 * ( 7 - 1 ) - 6 ) / 3 = 4"
+# output: True
+
+def arithmeticPredicate(predicate):
+    predicate = predicate.replace(" ","")
+    equal_idx = predicate.index('=')
+    left_side = predicate[0:equal_idx]
+    right_side = predicate[equal_idx+1:len(predicate)]
+    left_ans = evaluate(left_side)
+    right_ans = evaluate(right_side)
+    if int(left_ans) == int(right_ans):
+        return True
+    return False
+
+def evaluate(expression):
+    if is_number(expression): return int(expression)
+    exp_stack = []
+    # find and eliminate parenthesis, add data to stack
+    for char in expression:
+        if char == ')':
+            sub_expression = []
+            while exp_stack[-1] != '(':
+                sub_expression.insert(0,exp_stack.pop())
+            exp_stack.pop() # to get rid of the '('
+            exp_stack.append(evaluate(''.join(sub_expression)))
+        elif is_number(char):
+            if len(exp_stack) > 0 and is_number(exp_stack[-1]):
+                exp_stack[-1] += char
+            else:
+                exp_stack.append(char)
+        else:
+            exp_stack.append(char)
+    
+    # find and execute * or /
+    idx = 0
+    while idx < len(exp_stack):
+        if not is_number(exp_stack[idx]):
+            num_1 = float(exp_stack[idx-1])
+            num_2 = float(exp_stack[idx+1])
+            operator = exp_stack[idx]
+            if operator == '*' or operator == '/':
+                del exp_stack[idx]
+                del exp_stack[idx]
+                if operator == '*':
+                    exp_stack[idx-1] = str(num_1 * num_2)
+                elif operator == '/':
+                    exp_stack[idx-1] = str(num_1 / num_2)
+                idx -=1
+        idx += 1                       
+    # find and execute + or -
+    idx = 0
+    while idx < len(exp_stack):
+        if not is_number(exp_stack[idx]):
+            num_1 = float(exp_stack[idx-1])
+            num_2 = float(exp_stack[idx+1])
+            operator = exp_stack[idx]
+            if operator == '+' or operator == '-':
+                del exp_stack[idx]
+                del exp_stack[idx]
+                if operator == '+':
+                    exp_stack[idx-1] = str(num_1 + num_2)
+                elif operator == '-':
+                    exp_stack[idx-1] = str(num_1 - num_2)
+                idx -=1
+        idx += 1
+    exp_stack[0] = str(round(float(exp_stack[0])))
+    return exp_stack[0]
+    
+
+def is_number(s):
+    try:
+        float(s)
+        return True
+    except ValueError:
+        pass
+    return False
 
 # HELPFUL THINGS:
 # interate through dictionary
