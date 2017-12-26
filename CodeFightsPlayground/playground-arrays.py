@@ -237,6 +237,36 @@ def is_number(s):
         pass
     return False
 
+# Christmas Thief!
+
+def christmasThief(coworkers):
+    # create hash table
+    sender_hash = {}
+    receiver_hash = {}
+    gift_hash = {}
+    thieves = []
+    for pair in coworkers:
+        if pair[0] == pair[1]:
+            thieves.append(pair[0])
+        else:
+            gift_hash[pair[0]] = pair[1]
+            if pair[0] in sender_hash:
+                sender_hash[pair[0]] += 1
+            else:
+                sender_hash[pair[0]] = 1
+            if pair[1] in receiver_hash:
+                receiver_hash[pair[1]] += 1
+            else:
+                receiver_hash[pair[1]] = 1
+    for sender, receiver in gift_hash.items():
+        if not receiver in sender_hash:
+            thieves.append(sender)
+        elif sender_hash[receiver] < receiver_hash[receiver]:
+            thieves.append(sender)
+    return sorted(thieves)
+        
+
+
 # HELPFUL THINGS:
 # interate through dictionary
     # for key, value in counter.items():
