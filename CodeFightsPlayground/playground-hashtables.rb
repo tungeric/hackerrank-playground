@@ -23,3 +23,38 @@ def groupingDishes(dishes)
     end
     result.sort_by { |ingredient| ingredient[0]}
 end
+
+# Following Patterns
+# Input: strings: ["cat", 
+                #  "dog", 
+                #  "dog"]
+        # patterns: ["a", 
+                #  "b", 
+                #  "b"]
+# Output: true
+
+def areFollowingPatterns(strings, patterns)
+    i=0
+    p_tracker = {}
+    s_tracker = {}
+    while i < strings.length
+        if p_tracker[patterns[i]]
+            if p_tracker[patterns[i]] != strings[i]
+                return false
+            end
+        else
+            p_tracker[patterns[i]] = strings[i]
+        end
+        if s_tracker[strings[i]]
+            if s_tracker[strings[i]] != patterns[i]
+                return false
+            end
+        else
+            s_tracker[strings[i]] = patterns[i]
+        end
+        i += 1
+    end
+    true
+end
+
+
