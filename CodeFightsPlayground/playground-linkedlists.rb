@@ -6,7 +6,9 @@
 #     @next = nil
 # end
 #
+
 def removeKFromList(l, k)
+  # Removes any element in l that has a value of k
     newList = ListNode.new(0)
     newListCopy = newList
     while l
