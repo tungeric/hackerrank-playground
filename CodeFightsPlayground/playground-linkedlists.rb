@@ -23,3 +23,14 @@ def removeKFromList(l, k)
     newListCopy
             
 end
+
+# Is List Palindrome
+#
+def isListPalindrome(l)
+    array=[]
+    while l
+        array << l.value
+        l = l.next
+    end
+    return array == array.reverse
+end
