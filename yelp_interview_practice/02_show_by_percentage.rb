@@ -14,3 +14,4 @@ def show_by_percentage(percent, download)
     end
   end
 end
+
